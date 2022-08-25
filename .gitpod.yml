@@ -22,8 +22,11 @@ tasks:
       export PATH="$PATH:$HOME/.sprkl/bin"
     init: |
       npx --yes @sprkl/scripts@0.0.38 install
+      sprkl deploy
       mv $HOME/.sprkl /workspace/sprkl
       yarn install
       docker compose pull
+      docker compose build
+      
     
 
