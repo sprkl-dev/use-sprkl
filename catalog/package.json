@@ -1,0 +1,18 @@
+{
+  "name": "catalog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3",
+    "redis-mock": "^0.56.3"
+  }
+}

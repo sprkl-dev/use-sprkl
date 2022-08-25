@@ -1,0 +1,25 @@
+{
+  "moduleNameMapper": {
+    "^src/(.*)": "<rootDir>/src/$1"
+  },
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": ".",
+  "testRegex": "\\.test.(ts|js)$",
+  "transform": {
+    "^.+\\.ts": "ts-jest"
+  },
+
+  "globals": {
+    "ts-jest": {
+      "tsconfig": {
+        "inlineSourceMap": true,
+        "target": "esnext"
+      }
+    }
+  },
+  "testTimeout": 100000000
+}

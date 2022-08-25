@@ -1,0 +1,38 @@
+diff --git a/metrics/metrics.js b/metrics/metrics.js
+index 03ead12..c614a41 100644
+--- a/metrics/metrics.js
++++ b/metrics/metrics.js
+@@ -17,6 +17,21 @@ mongoose.connect(`mongodb://${process.env.MONGO_HOST}/mern`, {
+     useCreateIndex: true,
+ });
+ 
++app.put('/updateMetrics', async (req, res) => {
++    try {
++        const metrics = await utils.retrieveMetrics();
++        if (new Date().getDay() == 7) {
++            metrics.saturdaysCounter++;
++        } else {
++            metrics.totalCounter++;
++        }
++        await utils.updateMetrics(metrics);
++        res.sendStatus(200);
++    } catch(ex) {
++        res.status(401).send({ message: 'Failed updating metrics' + ex});
++    }
++});
++
+ app.get('/metrics', async (req, res) => {
+     const metrics = await utils.getMetrics();
+     res.send({
+diff --git a/orders/index.js b/orders/index.js
+index c7a09f4..65f1f69 100644
+--- a/orders/index.js
++++ b/orders/index.js
+@@ -52,6 +52,7 @@ fastify.post('/orders', async function (request, reply) {
+     order.state = 'landed'
+     ordersCollection.insertOne(order);
+     reply.send(order.state).code(200);
++    await axios.put('http://metrics:3000/updateMetrics')
+   })
+ 
+ fastify.get('/orders', async function (request, reply) {

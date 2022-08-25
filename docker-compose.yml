@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+
+  orders:
+    build: ./orders
+    environment:
+      MONGO_HOST: mongodb
+      PAYMENTS_URL: http://payments:3000
+      CATALOG_URL: http://catalog:3000
+
+  metrics:
+    build: ./metrics
+    environment:
+      MONGO_HOST: mongodb
+
+  payments:
+    build: ./payments
+    environment:
+      PG_HOST: pg
+      PG_USER: admin
+      PG_PASSWORD: admin
+
+  catalog:
+    build: ./catalog
+    environment:
+      REDIS_HOST: redis
+
+  mongodb:
+    image: mongo
+    restart: always
+
+  pg:
+    image: postgres
+    restart: always
+    env_file:
+      ./pg.env
+    environment:
+      PGDATA: /data/pg
+
+  redis:
+    image: redis
+    restart: always
+
+  shop:
+    build: ./shop
+    restart: always
+    environment:
+      VITE_METRICS_URL: http://metrics:3000
+      VITE_CATALOG_URL: http://catalog:3000
+      VITE_ORDERS_URL: http://orders:3000
+      VITE_PAYMENTS_URL: http://payments:3000
+    volumes:
+      - "./shop/src:/code/src"
+    ports:
+      - "80:5000"
+
