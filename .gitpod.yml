@@ -9,32 +9,27 @@ ports:
   - name: Store
     description: Sprkl store
     port: 80
-    onOpen: open-browser
 
   - name: Sprkl
     description: Sprkl agent
     port: 57011
-    onOpen: open-browser
 tasks:
   - before: |
-      if [ ! -d $HOME/.sprkl ]; then 
-        if [ -d /workspace/.sprkl ]; then
-          cp -rf /workspace/sprkl $HOME/.sprkl
-          ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
-        else
-          yarn install
-          docker compose up -d --build
-          npx --yes @sprkl/scripts@0.0.38 install || true
-          ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
-          sprkl apply
-          cp -rf $HOME/.sprkl /workspace/sprkl
-        fi
+      gp env -e "PATH=$PATH;$HOME/.sprkl/bin"
+      if [ -d /workspace/sprkl ]; then
+        cp -rf /workspace/sprkl $HOME/.sprkl
+      else
+        yarn install
+        docker compose up -d --build
+        npx --yes @sprkl/scripts@0.0.38 install || true
+        sprkl apply
+        cp -rf $HOME/.sprkl /workspace/sprkl
       fi
-      ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
     init: |
       yarn install
       docker compose up -d --build
       npx --yes @sprkl/scripts@0.0.38 install || true
+      gp env -e "PATH=$PATH;$HOME/.sprkl/bin"
       ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
       cp -rf $HOME/.sprkl /workspace/sprkl
       sprkl apply      
