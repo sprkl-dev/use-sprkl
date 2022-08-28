@@ -15,18 +15,27 @@ ports:
     description: Sprkl agent
     port: 57011
     onOpen: open-browser
-
 tasks:
   - before: |
-      mv /workspace/sprkl $HOME/.sprkl
-      export PATH="$PATH:$HOME/.sprkl/bin"
+      if [ ! -d $HOME/.sprkl ]; then 
+        if [ -d /workspace/.sprkl ]; then
+          cp -rf /workspace/sprkl $HOME/.sprkl
+          ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
+        else
+          yarn install
+          docker compose up -d --build
+          npx --yes @sprkl/scripts@0.0.38 install || true
+          ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
+          sprkl apply
+          cp -rf $HOME/.sprkl /workspace/sprkl
+        fi
+      fi
+      ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
     init: |
-      npx --yes @sprkl/scripts@0.0.38 install
-      sprkl deploy
-      mv $HOME/.sprkl /workspace/sprkl
       yarn install
-      docker compose pull
-      docker compose build
-      
-    
+      docker compose up -d --build
+      npx --yes @sprkl/scripts@0.0.38 install || true
+      ln -sf $HOME/.sprkl/bin/sprkl ~/.local/bin/sprkl
+      cp -rf $HOME/.sprkl /workspace/sprkl
+      sprkl apply      
 
