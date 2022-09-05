@@ -35,4 +35,15 @@ tasks:
         cp -rf $HOME/.sprkl /workspace/sprkl
         sprkl apply      
       fi
+    command: |
+      gp env -e "PATH=$PATH;$HOME/.sprkl/bin"
+      if [ -d /workspace/sprkl ]; then
+        cp -rf /workspace/sprkl $HOME/.sprkl
+      else
+        yarn install
+        docker compose up -d --build
+        npx --yes @sprkl/scripts@0.0.38 install || true
+        sprkl apply
+        cp -rf $HOME/.sprkl /workspace/sprkl
+      fi
 
