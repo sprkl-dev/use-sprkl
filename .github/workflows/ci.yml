@@ -13,7 +13,7 @@ jobs:
       - name: Sprkl Setup
         uses: sprkl-dev/sprkl-action/setup@master
         with:
-          npm_token: ${{ secrets.USE_SPRKL_CI_TOKEN }}
+          npm: ${{ secrets.USE_SPRKL_CI_TOKEN }}
           setenv: false
 
       - run: yarn install
