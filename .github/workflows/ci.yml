@@ -2,6 +2,9 @@ on:
   push:
     branches:
       - '**'
+  pull_request:
+    branches:
+      - '**'
 jobs:
   install-sprkl-test:
     runs-on: ubuntu-latest
@@ -13,7 +16,7 @@ jobs:
       - name: Sprkl Setup
         uses: sprkl-dev/sprkl-action/setup@master
         with:
-          npm: ${{ secrets.USE_SPRKL_CI_TOKEN }}
+          token: ${{ secrets.USE_SPRKL_CI_TOKEN }}
           setenv: false
 
       - run: yarn install
