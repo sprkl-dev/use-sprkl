@@ -15,7 +15,7 @@ ports:
     port: 57011
 tasks:
   - before: |
-      gp env -e "PATH=$PATH:$HOME/.sprkl/bin"
+      eval $(gp env -e "PATH=$PATH:$HOME/.sprkl/bin")
       if [ -d /workspace/sprkl ]; then
         cp -rf /workspace/sprkl $HOME/.sprkl
       else
@@ -36,7 +36,7 @@ tasks:
         sprkl apply      
       fi
     command: |
-      gp env -e "PATH=$PATH:$HOME/.sprkl/bin"
+      eval $(gp env -e "PATH=$PATH:$HOME/.sprkl/bin")
       if [ -d /workspace/sprkl ]; then
         cp -rf /workspace/sprkl $HOME/.sprkl
       else
