@@ -17,13 +17,14 @@ jobs:
         uses: sprkl-dev/sprkl-action/setup@master
         with:
           token: ${{ secrets.USE_SPRKL_CI_TOKEN }}
+          recipe: recent
           setenv: false
 
       - run: echo $SPRKL_RECIPE
       - run: echo $SPRKL_COMMITS 
       - run: sprkl apply --log-level=debug
       
-      
+
       - run: yarn install
       - run: yarn test:e2e:sprkl
 
