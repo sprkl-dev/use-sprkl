@@ -12,20 +12,15 @@ jobs:
     steps:
 
       - uses: actions/checkout@v3
-
-      - run: git rev-list -n 1 HEAD
-      - run: git log --format=%H,%an,%ae,%at,%cn,%ce,%ct\n%B
-      - run: git log --graph --oneline
+        with:
+          fetch-depth: 0
 
       - name: Sprkl Setup
         uses: sprkl-dev/sprkl-action/setup@master
         with:
           token: ${{ secrets.USE_SPRKL_CI_TOKEN }}
           setenv: false
-
-      - run: git rev-list -n 1 HEAD
-      - run: echo $SPRKL_RECIPE
-      - run: echo $SPRKL_COMMITS 
+ 
       - run: sprkl apply --log-level=debug
       
 
