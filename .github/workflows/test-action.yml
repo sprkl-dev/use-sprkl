@@ -14,8 +14,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - run: git rev-list -n 1 HEAD
-
-      - run: git checkout 795f567b92c0fdbc1a8b3fb52587829d0e1440d4
+      - run: git log --format=%H,%an,%ae,%at,%cn,%ce,%ct\n%B
+      - run: git log --graph --oneline
 
       - name: Sprkl Setup
         uses: sprkl-dev/sprkl-action/setup@master
