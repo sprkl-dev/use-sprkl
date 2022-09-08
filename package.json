@@ -2,7 +2,7 @@
   "name": "sprkl-microservices-example",
   "private": "true",
   "scripts": {
-    "start": "docker compose up --force-recreate",
+    "start": "docker compose up --force-recreate --build",
     "start:sprkl": "sprkl -- docker compose up -d --force-recreate --build",
     "stop": "docker compose down",
     "test": "jest",

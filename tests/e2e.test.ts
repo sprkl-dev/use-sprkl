@@ -56,8 +56,10 @@ describe("End to end", () => {
   }
 
   test('PlaceOrder', async () => {
+    if(true){
     const res = await axios.post(ORDERS_URL, order, config);
-    expect(res.status).toBe(200)
+    expect(res.status).toBe(200);
+    }
   })
 
 
