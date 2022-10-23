@@ -4,6 +4,12 @@ services:
 
   orders:
     build: ./orders
+    depends_on:
+      - mongodb
+      - payments
+      - catalog
+      - metrics
+    restart: always
     environment:
       MONGO_HOST: mongodb
       PAYMENTS_URL: http://payments:3000
@@ -11,11 +17,17 @@ services:
 
   metrics:
     build: ./metrics
+    depends_on:
+      - mongodb
+    restart: always
     environment:
       MONGO_HOST: mongodb
 
   payments:
     build: ./payments
+    depends_on:
+      - pg
+    restart: always
     environment:
       PG_HOST: pg
       PG_USER: admin
@@ -23,6 +35,9 @@ services:
 
   catalog:
     build: ./catalog
+    depends_on:
+      - redis
+    restart: always
     environment:
       REDIS_HOST: redis
 
@@ -33,10 +48,10 @@ services:
   pg:
     image: postgres
     restart: always
-    env_file:
-      ./pg.env
     environment:
-      PGDATA: /data/pg
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: payments
 
   redis:
     image: redis
@@ -44,6 +59,11 @@ services:
 
   shop:
     build: ./shop
+    depends_on:
+      - orders
+      - metrics
+      - catalog
+      - payments
     restart: always
     environment:
       VITE_METRICS_URL: http://metrics:3000
