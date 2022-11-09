@@ -3,6 +3,7 @@
 
 To run a simple example 
 ```bash
+yarn install
 yarn example
 ```
 
@@ -11,4 +12,4 @@ This will:
 2. Spin-up a docker-compose based micro-service application 
 3. Perform Jest tests 
 
-Open the sprkl extension dashboard (left side) to see the results.
+Open the sprkl extension dashboard (click on the sloth icon on the left pannel) to see the results in the Sprkl dashboard.
