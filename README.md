@@ -13,3 +13,4 @@ This will:
 3. Perform Jest tests 
 
 Open the sprkl extension dashboard (click on the sloth icon on the left pannel) to see the results in the Sprkl dashboard.
+![](https://lh5.googleusercontent.com/Gr0zXiDAvHUykcbo9YDGWxs-g71OG_tffLMTWQLT-FRtaO2zRXcJoENOAtZfpcaloenG1z9iioOzvRl3gMNWPfnOxW_VdlCHOJFsyxe4ehHPGcWGld57OH6yf2FV13bsJlKUH9C786pERUAcyBuLP3TrDVD9h0YCu-WYXQEqD0BNRiMif6Klb0Xi4Tu75Q)
