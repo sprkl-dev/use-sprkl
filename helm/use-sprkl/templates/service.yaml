@@ -12,7 +12,7 @@ spec:
   replicas: {{ .replicas | default 1 }}
   selector:
     matchLabels:
-      app/name: {{ $service }}
+      app/name: {{ $service }}    
   template:
     metadata:
       labels:
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: {{ $service }}
-        image: use-sprkl_{{ $service }}:latest
+        image: use-sprkl-{{ $service }}:latest
         imagePullPolicy: Never
         ports:
           - containerPort: {{ .port }}
