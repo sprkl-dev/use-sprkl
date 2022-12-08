@@ -1,0 +1,46 @@
+namespace: default
+
+services:
+  metrics:
+    port: 3000
+    env:
+      MONGO_HOST: mongodb
+  catalog:
+    port: 3000
+    env:
+      REDIS_HOST: redis
+  orders:
+    port: 3000
+    env:
+      MONGO_HOST: mongodb
+      CATALOG_URL: http://catalog:3000
+      PAYMENTS_URL: http://payments:3000
+  payments:
+    port: 3000
+    env:
+      PG_HOST: pg
+      PG_PASSWORD: admin
+      PG_USER: admin
+      PG_PORT: 5432
+  shop:
+    port: 5000
+    env:
+      VITE_CATALOG_URL: http://catalog:3000
+      VITE_METRICS_URL: http://metrics:3000
+      VITE_ORDERS_URL: http://orders:3000
+      VITE_PAYMENTS_URL: http://payments:3000
+
+databases:
+  mongodb:
+    port: 27017
+    image: mongo
+  redis:
+    port: 6379
+    image: redis
+  pg:
+    port: 5432
+    image: postgres
+    env:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: payments

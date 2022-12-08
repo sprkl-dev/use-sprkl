@@ -1,0 +1,46 @@
+{{- range $service, $properties := .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $service }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app/name: {{ $service }}
+    app/version: 1.0.0
+spec:
+  replicas: {{ .replicas | default 1 }}
+  selector:
+    matchLabels:
+      app/name: {{ $service }}    
+  template:
+    metadata:
+      labels:
+        app/name: {{ $service }}
+    spec:
+      containers:
+      - name: {{ $service }}
+        image: use-sprkl-{{ $service }}:latest
+        imagePullPolicy: Never
+        ports:
+          - containerPort: {{ .port }}
+        {{- if .env }}
+        env:
+        {{- range $name, $value := .env }}
+          - name: {{ $name }}
+            value: "{{ . }}"
+        {{- end }}
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $service }}
+spec:
+  selector:
+    app/name: {{ $service }}
+  ports:
+    - protocol: {{ .protocol | default "TCP" }}
+      port: {{ .port }}
+      targetPort: {{ .port }}
+{{- end }}

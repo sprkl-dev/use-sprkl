@@ -1,0 +1,42 @@
+{{- range $database, $properties := .Values.databases }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $database }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app/name: {{ $database }}
+spec:
+  replicas: {{ .replicas | default 1 }}
+  selector:
+    matchLabels:
+      app/name: {{ $database }}
+  template:
+    metadata:
+      labels:
+        app/name: {{ $database }}
+    spec:
+      containers:
+      - name: {{ $database }}
+        image: {{ .image }}:latest
+        {{- if .env }}
+        env:
+        {{- range $name, $value := .env }}
+          - name: {{ $name }}
+            value: {{ . }}
+        {{- end }}
+        {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $database }}
+spec:
+  selector:
+    app/name: {{ $database }}
+  ports:
+    - protocol: {{ .protocol | default "TCP" }}
+      port: {{ .port }}
+      targetPort: {{ .port }}
+{{- end }}

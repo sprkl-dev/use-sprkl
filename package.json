@@ -11,7 +11,10 @@
     "test:e2e:sprkl": "yarn start:sprkl && sprkl -- yarn run test:e2e:run ",
     "orders:mongosh": "docker exec -it sprkl-microservices-example-mongodb-1 mongosh orders",
     "payments:psql": "docker exec -it -e POSTGRESS_PASSWORD=admin sprkl-microservices-example-pg-1 psql -U admin payments",
-    "example": "git apply example.patch && yarn test:e2e:sprkl"
+    "example": "git apply example.patch && yarn test:e2e:sprkl",
+    "docker:build": "./scripts/build-images.sh",
+    "k8s:start": "yarn docker:build && ./scripts/k8s.sh start",
+    "k8s:stop": "./scripts/k8s.sh stop"
   },
   "workspaces": [
     "catalog",
