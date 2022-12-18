@@ -19,6 +19,3 @@ jobs:
 
       - run: yarn install
       - run: yarn test:e2e:sprkl
-        env: 
-          SPRKL_RECIPE: all
-
