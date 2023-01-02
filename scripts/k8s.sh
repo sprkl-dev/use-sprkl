@@ -34,8 +34,14 @@ if [ $CMD = "start" ]; then
     USE_SPRKL_ROOT_DIR="$(git rev-parse --show-toplevel)"
     helm upgrade --install use-sprkl $USE_SPRKL_ROOT_DIR/helm/use-sprkl
     shop_pod_name=""
+    retries=0
     while true; do
+        retries=$((retries+1))
         shop_pod_name=$(kubectl get pod -l app/name=shop -o jsonpath="{.items[0].metadata.name}")
+        if [[ $retries -gt 10 ]]; then
+            echo "Error: failed to find shop pod name after 10 retries."
+            exit 1
+        fi
         if [[ ! -z $shop_pod_name ]]; then
            break
         fi
