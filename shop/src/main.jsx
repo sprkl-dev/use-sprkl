@@ -11,6 +11,7 @@ import Product from "./routes/product";
 import Cart from "./routes/cart";
 import "normalize.css";
 import "./index.scss";
+import "./sprkl";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root")
