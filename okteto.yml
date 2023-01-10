@@ -1,0 +1,33 @@
+name: use-sprkl
+
+deploy:
+  commands:
+    - yarn docker:build
+    - helm upgrade --install use-sprkl ./helm/use-sprkl --set catalog.image=${OKTETO_BUILD_CATALOG_IMAGE} --set metrics.image=${OKTETO_BUILD_METRICS_IMAGE} --set orders.image=${OKTETO_BUILD_ORDERS_IMAGE} --set payments.image=${OKTETO_BUILD_PAYMENTS_IMAGE} --set shop.image=${OKTETO_BUILD_SHOP_IMAGE}
+  endpoints:
+    - path: /
+      service: shop
+      port: 5000
+
+dev:
+  metrics:
+    image: okteto/node:18
+    command: npm install && nodemon --signal SIGTERM --exec '$SPRKL_PREFIX/bin/sprkl --recipe=uncommitted  -- node' ./index.js
+    sync:
+      - metrics:/code/metrics
+      - .git:/code/.git
+    workdir: /code/metrics
+    environment:
+      GIT_DISCOVERY_ACROSS_FILESYSTEM: 1
+
+
+  orders:
+    image: okteto/node:18
+    command: yarn && nodemon --signal SIGTERM --exec '$SPRKL_PREFIX/bin/sprkl --recipe=uncommitted  -- node' ./index.js
+    sync:
+      - orders:/code/orders
+      - .git:/code/.git
+    workdir: /code/orders
+    environment:
+      GIT_DISCOVERY_ACROSS_FILESYSTEM: 1
+
