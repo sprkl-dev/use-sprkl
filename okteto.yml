@@ -12,7 +12,7 @@ deploy:
 dev:
   metrics:
     image: okteto/node:18
-    command: nodemon --signal SIGTERM --exec '$SPRKL_PREFIX/bin/sprkl --recipe=uncommitted  -- node' ./index.js
+    command: npm install && nodemon --signal SIGTERM --exec '$SPRKL_PREFIX/bin/sprkl --recipe=uncommitted  -- node' ./index.js
     sync:
       - metrics:/code/metrics
       - .git:/code/.git
@@ -23,7 +23,7 @@ dev:
 
   orders:
     image: okteto/node:18
-    command: nodemon --signal SIGTERM --exec '$SPRKL_PREFIX/bin/sprkl --recipe=uncommitted  -- node' ./index.js
+    command: yarn && nodemon --signal SIGTERM --exec '$SPRKL_PREFIX/bin/sprkl --recipe=uncommitted  -- node' ./index.js
     sync:
       - orders:/code/orders
       - .git:/code/.git
