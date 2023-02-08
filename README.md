@@ -11,7 +11,8 @@ Sprkl is a Personal Observability platform that provides personalized feedback o
   - [Bare metal](https://docs.sprkl.dev/v/getting-started/instrument-your-code/bare-metal)
   - [Docker or Docker Compose](https://docs.sprkl.dev/v/getting-started/instrument-your-code/docker)
   - [Kubernetes cluster (Okteto and TILT integrations)](https://docs.sprkl.dev/v/getting-started/instrument-your-code/kubernetes)
-- Check out our demo for guidance on how to get started.
+
+Checkout [our demo video](https://www.youtube.com/watch?v=H6aR-Mg-G_E) for more guidance on how to get started.
 
 ## Simple Example
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/sprkl-dev/use-sprkl)
