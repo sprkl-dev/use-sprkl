@@ -52,7 +52,7 @@ fastify.post('/orders', async function (request, reply) {
     order.state = 'landed'
     ordersCollection.insertOne(order);
     reply.send(order.state).code(200);
-    // await axios.put('http://metrics:3000/updateMetrics')
+    await axios.put('http://metrics:3000/updateMetrics')
   })
 
 fastify.get('/orders', async function (request, reply) {

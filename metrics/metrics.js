@@ -38,20 +38,20 @@ app.post('/metrics', async (req, res) => {
     }
 })
 
-// app.put('/updateMetrics', async (req, res) => {
-//     try {
-//         const metrics = await utils.retrieveMetrics();
-//         if (new Date().getDay() == 7) {
-//             metrics.saturdaysCounter++;
-//         } else {
-//             metrics.totalCounter++;
-//         }
-//         await utils.updateMetrics(metrics);
-//         res.sendStatus(200);
-//     } catch(ex) {
-//         res.status(401).send({ message: 'Failed updating metrics' + ex});
-//     }
-// });
+app.put('/updateMetrics', async (req, res) => {
+    try {
+        const metrics = await utils.retrieveMetrics();
+        if (new Date().getDay() == 7) {
+            metrics.saturdaysCounter++;
+        } else {
+            metrics.totalCounter++;
+        }
+        await utils.updateMetrics(metrics);
+        res.sendStatus(200);
+    } catch(ex) {
+        res.status(401).send({ message: 'Failed updating metrics' + ex});
+    }
+});
 
 app.get('/healthz', async (req, res) => {
     res.status(200);
