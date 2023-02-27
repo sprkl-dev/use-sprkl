@@ -38,6 +38,15 @@ app.post('/metrics', async (req, res) => {
     }
 })
 
+app.get('/greetUser', async (req, res) => {
+    try {
+        const username = req.query.name
+        res.send('<h1> Hello :' + username + "</h1>")
+    } catch(e) {
+        res.status(401).send({ message: 'Failed to greet user' + e})
+    }
+})
+
 // app.put('/updateMetrics', async (req, res) => {
 //     try {
 //         const metrics = await utils.retrieveMetrics();
