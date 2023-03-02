@@ -17,6 +17,8 @@ mongoose.connect(`mongodb://${process.env.MONGO_HOST}/mern`, {
     useCreateIndex: true,
 });
 
+console.log("hello");
+
 app.get('/metrics', async (req, res) => {
     const metrics = await utils.getMetrics();
     res.send({
@@ -37,6 +39,8 @@ app.post('/metrics', async (req, res) => {
         res.sendStatus(404);
     }
 })
+
+console.log("aaaaaa")
 
 // app.put('/updateMetrics', async (req, res) => {
 //     try {
