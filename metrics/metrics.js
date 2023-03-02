@@ -40,6 +40,8 @@ app.post('/metrics', async (req, res) => {
     }
 })
 
+console.log("aaaaaa")
+
 // app.put('/updateMetrics', async (req, res) => {
 //     try {
 //         const metrics = await utils.retrieveMetrics();
