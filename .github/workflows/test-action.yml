@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Sprkl Setup
-        uses: sprkl-dev/sprkl-action/setup@master
+        uses: sprkl-dev/sprkl-action/setup@fix/pr-commits-pull
         with:
           token: ${{ secrets.USE_SPRKL_CI_TOKEN }}
           setenv: false
